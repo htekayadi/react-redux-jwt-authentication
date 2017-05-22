@@ -1,4 +1,12 @@
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { loginUser, fetchQuote, fetchSecretQuote } from '../actions'
+import Login from '../components/Login'
+import Navbar from '../components/Navbar'
+import Quotes from '../components/Quotes'
+
 class App extends Component {
+  
   render() {
     const { dispatch, quote, isAuthenticated, errorMessage, isSecretQuote } = this.props
     return (
@@ -8,10 +16,10 @@ class App extends Component {
           errorMessage={errorMessage}
           dispatch={dispatch}
         />
-        <div className="container">
+        <div className='container'>
           <Quotes
             onQuoteClick={() => dispatch(fetchQuote())}
-            onSecretQuoteClick{() => dispatch(fetchSecretQuote())}
+            onSecretQuoteClick={() => dispatch(fetchSecretQuote())}
             isAuthenticated={isAuthenticated}
             quote={quote}
             isSecretQuote={isSecretQuote}
@@ -26,15 +34,16 @@ App.propTypes = {
   dispatch: PropTypes.func.isRequired,
   quote: PropTypes.string,
   isAuthenticated: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string,
   isSecretQuote: PropTypes.bool.isRequired
 }
 
-function  mapStateToProps(state) {
+function mapStateToProps(state) {
+  
   const { quotes, auth } = state
   const { quote, authenticated } = quotes
   const { isAuthenticated, errorMessage } = auth
-
+  
   return {
     quote,
     isSecretQuote: authenticated,
@@ -44,3 +53,4 @@ function  mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(App)
+
