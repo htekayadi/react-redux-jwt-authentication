@@ -62,7 +62,7 @@ function quotes(state = {
   }
 }
 
-const quotesAPp = combineReducers({
+const quotesApp = combineReducers({
   auth,
   quotes
 })
